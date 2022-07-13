@@ -1,0 +1,9 @@
+<mat-grid-list cols="4" rowHeight="400px" >
+  <mat-grid-tile
+      *ngFor="let tile of tiles; index as id"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="'white'">
+      <img mat-card-image [src]="getImageUrl(tile, id)" alt="Photo of a Shiba Inu" >
+  </mat-grid-tile>
+</mat-grid-list>
