@@ -1,0 +1,75 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading || loadingStep"></mat-progress-bar>
+<a mat-menu-item >
+  <span>Grid Settings</span>
+</a>
+<mat-vertical-stepper [linear]="false" #stepper *ngIf="!loading">
+  <mat-step [stepControl]="setUpGridFormGroup">
+    <form [formGroup]="setUpGridFormGroup">
+      <ng-template matStepLabel>Set up grid lay out</ng-template>
+      <table style="width: 50%; margin-top: 10px;" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Number of columns</mat-label>
+              <input type="number" matInput formControlName="numberOfColumns" >
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Number of rows</mat-label>
+              <input type="number" matInput  formControlName="numberOfRows">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Number of merge cells per time</mat-label>
+              <input type="number" matInput  formControlName="numberOfMergeCellsPerTime">
+            </mat-form-field>
+          </td>
+          <td>
+            <div>
+              <button mat-button (click)="generateGrid()" [disabled]="setUpGridFormGroup.invalid" >Generate</button>
+            </div>
+          </td>
+          <td *ngIf="setUpGridFormGroup?.value?.numberOfMergeCellsPerTime && setUpGridFormGroup?.value?.numberOfMergeCellsPerTime == selectedTiles.length">
+            <div>
+              <button mat-button (click)="mergeCells()" >Merge</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <mat-grid-list [cols]="colCount" rowHeight="50px" >
+        <mat-grid-tile *ngFor="let tile of tiles"
+            (click)="gridCellClick(tile)"
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows"
+            [style.background]="tile.color"
+            >
+          </mat-grid-tile>
+      </mat-grid-list>
+      <div>
+        <button mat-button matStepperNext (click)="next()">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Upload images</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="secondCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

@@ -22,15 +22,20 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
+import { MatStepperModule } from '@angular/material/stepper';
+import { CdkStepperModule} from '@angular/cdk/stepper';
 //components
 import { HomeComponent } from './home/home.component';
 import { NavigationCenterComponent } from './navigation-center/navigation-center.component';
+import { GridSettingComponent } from './grid-setting/grid-setting.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavigationCenterComponent
+    NavigationCenterComponent,
+    GridSettingComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +43,8 @@ import { NavigationCenterComponent } from './navigation-center/navigation-center
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    // angular matarials
     MatSliderModule,
     MatInputModule,
     MatButtonModule,
@@ -53,7 +60,9 @@ import { NavigationCenterComponent } from './navigation-center/navigation-center
     MatToolbarModule,
     MatMenuModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatStepperModule,
+    CdkStepperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
