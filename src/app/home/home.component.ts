@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tile } from '../shared/model/Title';
+import { GridService } from '../shared/service/grid.service';
 
 @Component({
   selector: 'home',
@@ -8,25 +9,34 @@ import { Tile } from '../shared/model/Title';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   urls: string[] = [];
+  loading: boolean = false;
 
   title = 'angular-rxjs';
-  tiles: Tile[] = [
-    {text: 'One', cols: 3, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 1, rows: 2, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 1, color: 'lightpink'},
-    {text: 'Four', cols: 2, rows: 1, color: '#DDBDF1'},
-    {text: 'One', cols: 2, rows: 1, color: 'lightblue'},
-    {text: 'Two', cols: 2, rows: 1, color: 'lightgreen'},
-    {text: 'Three', cols: 1, rows: 2, color: 'lightpink'},
-    {text: 'Four', cols: 3, rows: 1, color: '#DDBDF1'},
-    {text: 'Four', cols: 3, rows: 1, color: '#lightpink'},
-  ];
+  tiles: Tile[] = [];
+
+
+  constructor(private gridService: GridService) { }
+
+  ngOnInit(): void {
+    
+    this.loadGridTiles();
+    
+  }
+
+
+  private loadGridTiles() {
+    this.loading = true;
+    this.gridService.loadGridTiles(0).subscribe(res => {
+      if (res && res.payload) {
+        this.tiles = res.payload;
+      }
+      this.loading = false;
+    }, err=>{
+      console.error(err); 
+      this.loading = false;
+    });
+  }
 
   getImageUrl(tile:Tile, index: number):string{
     if(!this.urls[index]){
