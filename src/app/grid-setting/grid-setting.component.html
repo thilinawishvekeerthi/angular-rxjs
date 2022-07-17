@@ -1,8 +1,8 @@
-<mat-progress-bar mode="indeterminate" *ngIf="loading || loadingStep"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="(loadingService.loading$  | async)"></mat-progress-bar>
 <a mat-menu-item >
   <span>Grid Settings</span>
 </a>
-<mat-vertical-stepper [linear]="false" #stepper *ngIf="!loading">
+<mat-vertical-stepper [linear]="false" #stepper *ngIf="!(loadingService.loading$  | async)">
   <mat-step [stepControl]="setUpGridFormGroup">
     <form [formGroup]="setUpGridFormGroup">
       <ng-template matStepLabel>Set up grid lay out</ng-template>
@@ -21,30 +21,21 @@
             </mat-form-field>
           </td>
           <td>
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Number of merge cells per time</mat-label>
-              <input type="number" matInput  formControlName="numberOfMergeCellsPerTime">
-            </mat-form-field>
-          </td>
-          <td>
             <div>
               <button mat-button (click)="generateGrid()" [disabled]="setUpGridFormGroup.invalid" >Generate</button>
             </div>
-          </td>
-          <td *ngIf="setUpGridFormGroup?.value?.numberOfMergeCellsPerTime && setUpGridFormGroup?.value?.numberOfMergeCellsPerTime == selectedTiles.length">
-            <div>
-              <button mat-button (click)="mergeCells()" >Merge</button>
-            </div>
-          </td>
+          </td>         
         </tr>
       </table>
-      <mat-grid-list [cols]="colCount" rowHeight="50px" >
-        <mat-grid-tile *ngFor="let tile of tiles"
+      <mat-grid-list *ngIf="(gridData$ | async) as gridData" [cols]="gridData?.Config?.colCount" rowHeight="50px" >
+        <mat-grid-tile *ngFor="let tile of gridData.Tiles"
+            class="example-ripple-container mat-elevation-z4"
+            matRipple
             (click)="gridCellClick(tile)"
             [colspan]="tile.cols"
             [rowspan]="tile.rows"
             [style.background]="tile.color"
-            >
+            >        
           </mat-grid-tile>
       </mat-grid-list>
       <div>
