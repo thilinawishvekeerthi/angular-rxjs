@@ -38,29 +38,9 @@
             >        
           </mat-grid-tile>
       </mat-grid-list>
-      <div>
-        <button mat-button matStepperNext (click)="next()">Next</button>
+      <div style="margin-top: 20px;">
+        <button mat-raised-button matStepperNext (click)="next()">Save</button>
       </div>
     </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Upload images</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="secondCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
   </mat-step>
 </mat-vertical-stepper>
