@@ -24,18 +24,24 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CdkStepperModule} from '@angular/cdk/stepper';
+import { MatRippleModule } from '@angular/material/core';
 //components
 import { HomeComponent } from './home/home.component';
 import { NavigationCenterComponent } from './navigation-center/navigation-center.component';
 import { GridSettingComponent } from './grid-setting/grid-setting.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingService } from './shared/service/loading.service';
+import { GridDataService } from './shared/service/grid.data.service';
+import { MergeDialogComponent } from './grid-setting/merge-dialog/merge-dialog.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavigationCenterComponent,
-    GridSettingComponent
+    GridSettingComponent,
+    MergeDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,9 +68,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatDialogModule,
     MatListModule,
     MatStepperModule,
-    CdkStepperModule
+    CdkStepperModule,
+    MatRippleModule
   ],
-  providers: [],
+  providers: [
+    LoadingService,
+    GridDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

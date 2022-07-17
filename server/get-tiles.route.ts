@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {TILES} from './data-store';
+import {TILES, CONFIG} from './data-store';
 
 export function getGridTiles(req : Request, res: Response){
     const emitError = req.params["emit_error"];
@@ -7,7 +7,10 @@ export function getGridTiles(req : Request, res: Response){
         res.status(500).json({message: 'Programmatically Caused Error'});
     }else{
         setTimeout(() => {
-            res.status(200).json({payload:Object.values(TILES)});
+            res.status(200).json({payload:
+                { Tiles : Object.values(TILES),
+                  Config : CONFIG }
+            });
        }, 1500);
     }
     

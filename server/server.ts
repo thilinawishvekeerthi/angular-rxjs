@@ -1,7 +1,7 @@
 import * as express from 'express';
 import {Application} from "express";
 import {getGridTiles} from "./get-tiles.route";
-import {saveTiles} from "./save-tiles";
+import {saveGridData} from "./save-tiles";
 
 
 const bodyParser = require('body-parser');
@@ -14,8 +14,8 @@ const cors = require('cors');
 
 app.use(cors({origin: true}));
 
-app.route('/api/tiles/:emit_error').get(getGridTiles);
-app.route('/api/tiles/:emit_error').put(saveTiles);
+app.route('/api/grid-data/:emit_error').get(getGridTiles);
+app.route('/api/grid-data/:emit_error').put(saveGridData);
 
 
 const httpServer = app.listen(9000, () => {

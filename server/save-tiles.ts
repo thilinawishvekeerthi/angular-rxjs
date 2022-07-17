@@ -1,15 +1,20 @@
 import {Request, Response} from 'express';
-import {TILES,save, getTile} from "./data-store";
+import {saveConfig,saveTiles,getConfig, getTile} from "./data-store";
 import {setTimeout} from 'timers';
 
-export function saveTiles(req:Request, res: Response){
+export function saveGridData(req:Request, res: Response){
     const emitError = req.params["emit_error"];
     if(emitError=="1"){
         res.status(500).json({message: 'Programmatically Caused Error'});
     }else{
         setTimeout(() => {
-            save(req.body);
-            res.status(200).json({payload:Object.values(getTile())});
+            let gridData = req.body;
+            saveTiles(gridData.Tiles);
+            saveConfig(gridData.Config)
+            res.status(200).json({payload:
+                { Tiles : Object.values(getTile()),
+                  Config : getConfig() }
+            });
        }, 1500);
     }
 }

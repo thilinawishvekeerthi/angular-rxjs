@@ -6,4 +6,5 @@ export interface Tile {
   text: string;
   selected: boolean;
   merged: boolean;
+  url?: string;
 }

@@ -1,10 +1,13 @@
-<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-<mat-grid-list cols="4" rowHeight="150px" *ngIf="!loading">
-  <mat-grid-tile
-      *ngFor="let tile of tiles; index as id"
+<mat-progress-bar mode="indeterminate" *ngIf="loadingService.loading$ | async"></mat-progress-bar>
+<ng-container *ngIf="(gridData$ | async) as gridData">
+  <mat-grid-list [cols]="gridData?.Config?.colCount" rowHeight="150px">
+    <mat-grid-tile
+      *ngFor="let tile of gridData?.Tiles"
       [colspan]="tile.cols"
       [rowspan]="tile.rows"
       [style.background]="'white'">
-      <img mat-card-image [src]="getImageUrl(tile, id)" alt="Photo of a Shiba Inu" >
-  </mat-grid-tile>
-</mat-grid-list>
+      <img mat-card-image [src]="tile?.url" alt="Picture unavailable" >
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-container>
+
