@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
     
   }
 
-
   private loadGridTiles() {
     this.loading = true;
     this.gridService.loadGridTiles(0).subscribe(res => {
