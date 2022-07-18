@@ -9,19 +9,16 @@ import { GridService } from '../shared/service/grid.service';
 })
 export class HomeComponent implements OnInit {
 
+  //mutable variables
   urls: string[] = [];
   loading: boolean = false;
-
   title = 'angular-rxjs';
   tiles: Tile[] = [];
-
 
   constructor(private gridService: GridService) { }
 
   ngOnInit(): void {
-    
     this.loadGridTiles();
-    
   }
 
   private loadGridTiles() {
