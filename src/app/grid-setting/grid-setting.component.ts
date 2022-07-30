@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { GridData } from '../shared/model/TileResponse';
@@ -7,6 +7,7 @@ import { GridDataService } from '../shared/service/grid.data.service';
 import { LoadingService } from '../shared/service/loading.service';
 @Component({
   selector: 'grid-setting',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './grid-setting.component.html',
   styleUrls: ['./grid-setting.component.scss'],
   providers:[
