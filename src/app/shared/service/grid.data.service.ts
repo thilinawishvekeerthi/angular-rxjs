@@ -99,10 +99,13 @@ export class GridDataService{
         const selectedTiles = this.selectedTileSubject.getValue();
         if(!tile.merged){
             if(tile.selected){
+              // remove from selected tiles
               let index = selectedTiles.findIndex(d => d.id === tile.id); 
               selectedTiles.splice(index, 1);
+              // change the color to old value
               tile.color = 'gray';
               tile.selected = false;
+              this.updateGridDataTile(tile);
             }
             // check merge cell validation and change selected tile
             else if(formValue.numberOfMergeCellsPerTime > selectedTiles.length){
@@ -110,6 +113,7 @@ export class GridDataService{
               tile.selected = true;
               selectedTiles.push(tile);
               this.selectedTileSubject.next(selectedTiles);
+              this.updateGridDataTile(tile);
             } else{
               this.messageService.openSnackBar("exeeds selected cells");
             }
@@ -126,6 +130,13 @@ export class GridDataService{
             this.messageService.openSnackBar("cannot select merge cells");
           }
         
+      }
+
+      private updateGridDataTile(tile: Tile) {
+        let gridData = this.gridDataSubject.getValue();
+        let tileId = gridData.Tiles.findIndex(d => d.id == tile.id);
+        gridData.Tiles.splice(tileId, 1, tile);
+        this.gridDataSubject.next(gridData);
       }
 
       mergeCells(formValue : any):void{
